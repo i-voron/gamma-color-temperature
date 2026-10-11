@@ -1,5 +1,7 @@
 # Gamma — Color Temperature Manager
 
+**English** | [Русский](README.ru.md)
+
 A simple **X11** utility for manual control of monitor color temperature presets. Written in Python and Tkinter, requires no background processes or external dependencies.
 
 ![Version](https://img.shields.io/badge/version-1.0-blue)
@@ -365,8 +367,8 @@ gamma/
 ├── autostart-enable.sh       # Enable autostart
 ├── autostart-disable.sh      # Disable autostart
 ├── Makefile                  # install / uninstall / run / test / clean
-├── README.en.md
-├── README.ru.md
+├── README.md                 # Documentation (English)
+├── README.ru.md              # Documentation (Russian)
 ├── CHANGELOG.en.md
 ├── CHANGELOG.ru.md
 ├── CONTRIBUTING.md           # How to report bugs and contribute
