@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "3500K (Warm Light)",
+    "rgb": [
+      1.0,
+      0.83,
+      0.61
+    ],
+    "comment": "Warm white light. Perfect for coding and office work under low ambient lighting."
+  },
+  {
+    "id": 2,
+    "name": "4000K (Neutral)",
+    "rgb": [
+      1.0,
+      0.88,
+      0.69
+    ],
+    "comment": "Neutral white with no yellow tint. Reduces eye strain during the daytime."
+  },
+  {
+    "id": 3,
+    "name": "5000K (E-Ink / Paper)",
+    "rgb": [
+      1.0,
+      0.94,
+      0.77
+    ],
+    "comment": "Electronic paper effect. Comfortable for long reading sessions and text processing."
+  },
+  {
+    "id": 4,
+    "name": "6500K (Daylight)",
+    "rgb": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "comment": "Standard monitor color profile (sRGB D65). Native colors with no filtering applied."
+  },
+  {
+    "id": 5,
+    "name": "7500K (Cool)",
+    "rgb": [
+      0.87,
+      0.91,
+      1.0
+    ],
+    "comment": "Cool dynamic light. Increases contrast and alertness in bright environments."
+  },
+  {
+    "id": 6,
+    "name": "1900K (Candlelight)",
+    "rgb": [
+      1.0,
+      0.62,
+      0.28
+    ],
+    "comment": "Ultra-warm orange tint. Maximum blue light suppression for late-night use in complete darkness."
+  },
+  {
+    "id": 7,
+    "name": "2300K (Dim Sunset)",
+    "rgb": [
+      1.0,
+      0.68,
+      0.36
+    ],
+    "comment": "Soft amber glow. Excellent for relaxing or watching movies before sleep."
+  },
+  {
+    "id": 8,
+    "name": "2700K (Incandescent)",
+    "rgb": [
+      1.0,
+      0.71,
+      0.43
+    ],
+    "comment": "Classic cozy home lighting spectrum. Simulates a traditional incandescent bulb."
+  },
+  {
+    "id": 9,
+    "name": "Dimmer (Low Light)",
+    "rgb": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "comment": "Reduces display matrix brightness by 50% without altering the color temperature balance."
+  },
+  {
+    "id": 10,
+    "name": "Amber (High Contrast)",
+    "rgb": [
+      1.0,
+      0.6,
+      0.01
+    ],
+    "comment": "High contrast terminal mode. Completely cuts blue spectrum, making white text amber."
+  },
+  {
+    "id": 11,
+    "name": "Darkroom (Red Mono)",
+    "rgb": [
+      1.0,
+      0.01,
+      0.01
+    ],
+    "comment": "Monochrome red mode. Preserves night vision and protects melatonin production entirely."
+  },
+  {
+    "id": 12,
+    "name": "Eco (Green Tint)",
+    "rgb": [
+      0.3,
+      1.0,
+      0.3
+    ],
+    "comment": "Green phosphor filter. Maximizes UI legibility at extremely low hardware brightness levels."
+  }
+]

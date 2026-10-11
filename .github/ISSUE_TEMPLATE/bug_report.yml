@@ -1,0 +1,111 @@
+name: Bug report
+description: Отчёт об ошибке в Gamma / Bug report for Gamma
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Перед отправкой проверьте тип сессии: `echo $XDG_SESSION_TYPE`
+        Gamma работает **только на X11**. На Wayland `xrandr` не имеет доступа к гамме —
+        такие отчёты закрываются без разбора (используйте Gammastep или Night Light).
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Что вы ожидали / Expected behavior
+      description: Кратко и по делу
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Что произошло / Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Шаги воспроизведения / Steps to reproduce
+      placeholder: |
+        1. Запустить ./gamma.py
+        2. Выбрать монитор "HDMI-A-0"
+        3. Нажать пресет #3 5000K
+        4. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: distro
+    attributes:
+      label: Дистрибутив / Distribution
+      options:
+        - Ubuntu
+        - Debian
+        - Arch / Manjaro
+        - Fedora
+        - openSUSE
+        - Другой (укажите в поле ниже / other (describe below)
+    validations:
+      required: true
+
+  - type: input
+    id: de
+    attributes:
+      label: DE / оконный менеджер / Desktop environment or window manager
+      placeholder: KDE Plasma 6, i3, bspwm, GNOME...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Версия Gamma / Gamma version
+      placeholder: 1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: session
+    attributes:
+      label: Тип сессии / Session type
+      options:
+        - X11
+        - Wayland
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Версия Python / Python version
+      placeholder: "3.12"
+    validations:
+      required: true
+
+  - type: textarea
+    id: monitors
+    attributes:
+      label: Вывод `gamma.py --list-monitors`
+      description: Скопируйте вывод команды целиком
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Фрагмент gamma.log
+      description: Приложите фрагмент или весь файл — персональных данных нет
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Проверки / Checklist
+      options:
+        - label: Я проверил, что аналогичной issue нет / I checked for existing issues
+          required: true
+        - label: Моя сессия — X11 / My session is X11
+          required: true

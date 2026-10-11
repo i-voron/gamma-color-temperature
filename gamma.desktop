@@ -1,0 +1,10 @@
+                                                                         [Desktop Entry]Version=1.0
+Type=Application
+Name=Gamma
+Comment=Color Temperature Manager
+Exec=/home/voin/bin/gamma/gamma.py
+Icon=/home/voin/bin/gamma/gamma.png
+Terminal=false
+Categories=Utility;Settings;HardwareSettings;
+Keywords=gamma;color;temperature;display;monitor;
+StartupNotify=false
