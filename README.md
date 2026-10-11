@@ -28,7 +28,7 @@ A simple **X11** utility for manual control of monitor color temperature presets
 
 **Gamma is NOT for you if you:**
 - Use **Wayland** (need Gammastep or built-in Night Light)
-- Want **automatic switching** by time of day (need Redshift/f.lux)
+- Want **automatic switching** by time of day (need Redshift/Gammastep)
 - Need **geolocation** for automatic sunset/sunrise calculation
 
 ## 🎯 Real advantages
@@ -42,7 +42,7 @@ If you have several different monitors (e.g., a laptop IPS screen and an externa
 - **Use separate presets** — main monitor warm for code reading (3500K), second in neutral tones (5000K) for references
 - **Save complex configuration** to a single JSON file that survives session restarts
 
-Unlike Redshift, which applies settings globally to the entire X session, or Night Light, which works on a "one slider for everything" principle, Gamma gives full control over each display via GUI.
+Unlike Redshift and Gammastep, which apply the same setting to all monitors (they can only choose which CRTCs are affected via `-m randr:crtc=0,1`), or Night Light, which works on a "one slider for everything" principle, Gamma gives independent RGB control over each display via GUI.
 
 ### Smart restoration without daemons
 Gamma settings for all monitors are automatically restored on login. The program does this in a fraction of a second at session start and immediately exits, without staying in memory.
@@ -51,7 +51,7 @@ Gamma settings for all monitors are automatically restored on login. The program
 You don't need to manually edit `.xprofile` or window manager files. The included `autostart-enable.sh` script sets up autostart with a single command.
 
 ### Human-friendly interface
-Unlike Redshift, where creating presets requires writing bash wrapper scripts, Gamma has a Tkinter GUI where you can save the current profile, rename it, or delete it in one click.
+Unlike Redshift and Gammastep, where switching between presets requires CLI one-shot calls or shell wrappers (the bundled trays, `redshift-gtk` and `gammastep-indicator`, only offer an on/off toggle and a temperature slider), Gamma has a Tkinter GUI where you can save the current profile, rename it, or delete it in one click.
 
 ### Portability
 Gamma is a ready-to-run script. No need to build from source or add third-party PPAs. You can carry it on a flash drive and run on any X11 system.
@@ -184,23 +184,39 @@ bindsym $mod+F3 exec ~/bin/gamma/gamma.py --next
 
 | | **Gamma** | **Redshift** | **Gammastep** | **GNOME Night Light** |
 |---|---|---|---|---|
-| **Purpose** | Manual preset switcher | Automatic time-based switching | Automatic time-based switching | Automatic schedule-based switching |
-| **Per-monitor configuration** | ✅ Full (individual RGB per monitor in GUI and CLI via `--monitor`) | ❌ No (applies globally to all outputs) | ❌ No (applies globally to all outputs) | ❌ No (one slider for all screens) |
-| **Ready to use (UX)** | ✅ Out of the box (launch — 12 presets ready, click a preset — applied) | ⚠️ Manual mode via CLI (`-O`); auto-mode requires geoclue | ⚠️ Manual mode via CLI (`-O`); auto-mode requires geoclue | ✅ Out of the box (but tied to geolocation/time) |
-| **Preset management** | ✅ GUI + CLI (save, import/export, search) | ⚠️ CLI (`-O`) + third-party tray GUI (redshift-gtk) | ⚠️ CLI (`-O`) + third-party tray GUI (gammastep-indicator) | ❌ No (auto mode only) |
-| **Background process** | ❌ No (one-shot, apply and exit) | ✅ Daemon (always in memory) | ✅ Daemon (always in memory) | ✅ DE service (always in memory) |
-| **Wayland support** | ❌ X11 only | ❌ No (project abandoned) | ⚠️ Limited (wlroots only: Sway, Hyprland; not GNOME/KDE) | ✅ Yes |
+| **Purpose** | Manual preset switcher | Automatic time/sun-based switching | Automatic time/sun-based switching | Schedule-based switching (sunset→sunrise or manual times) |
+| **Per-monitor configuration** | ✅ Full — independent RGB per monitor (GUI and CLI via `--monitor`) | ⚠️ Partial — the same setting for all monitors; only which CRTCs are affected can be selected (`-m randr:crtc=0,1`) | ⚠️ Partial — the same setting for all monitors; only which CRTCs are affected can be selected (`-m randr:crtc=0,1`) | ❌ No — one temperature slider for all displays |
+| **Ready to use (UX)** | ✅ Out of the box (launch — 12 presets ready, click a preset — applied) | ✅ One-shot applies immediately (`-O TEMP`); automatic mode needs a location | ✅ One-shot applies immediately (`-O TEMP`); automatic mode needs a location | ✅ Out of the box (no geolocation needed with the manual schedule) |
+| **Preset management** | ✅ GUI + CLI (save, import/export, search) | ⚠️ CLI one-shot; the bundled `redshift-gtk` tray only toggles on/off and slides the temperature | ⚠️ CLI one-shot; the `gammastep-indicator` tray only toggles on/off and slides the temperature | ❌ No presets — just one temperature slider |
+| **Background process** | ❌ No (one-shot, apply and exit) | ⚠️ Daemon for automatic mode; can also run one-shot (`-O`) | ⚠️ Daemon for automatic mode; can also run one-shot (`-O`) | Built into GNOME Shell (mutter) — no separate process |
+| **Automatic schedule** | ❌ No, manual only | ✅ By sun position, with smooth fading | ✅ By sun position, with smooth fading | ✅ Schedule with smooth transitions |
+| **Hooks / automation** | ❌ No | ✅ `~/.config/redshift/hooks` — your scripts run on period changes | ✅ `~/.config/gammastep/hooks` — your scripts run on period changes | ❌ No |
+| **Wayland support** | ❌ X11 only | ❌ No | ⚠️ Limited (wlroots only: Sway, Hyprland; not GNOME/KDE) | ✅ Yes (GNOME, on both X11 and Wayland) |
 | **Format** | Script (runs directly, no installation) | Package (requires build/install) | Package (requires build/install) | Built into GNOME |
-| **Availability** | ❌ Manual (download from repository) | ✅ In distribution repositories | ✅ In distribution repositories | ✅ Built into GNOME |
+| **Availability** | ❌ Manual (download from repository) | ✅ In distribution repositories (last release 1.12, 2018; repository archived in 2026) | ✅ In distribution repositories (active, 2.x) | ✅ Built into GNOME |
 | **Dependencies** | Python + xrandr | C (geoclue optional for auto-coordinates) | C (geoclue optional for auto-coordinates) | Built into GNOME |
 | **Preset import/export** | ✅ JSON files | ❌ No | ❌ No | ❌ No |
 | **Preset comments** | ✅ Yes | ❌ No | ❌ No | ❌ No |
 | **Dark/light theme** | ✅ Auto-detection | ❌ No | ❌ No | ✅ Yes |
 
 **Choosing a utility:**
-- **Gamma** — if you need a simple manual switcher with GUI and presets for X11, especially with multiple monitors
-- **Redshift/Gammastep** — if you need automatic time/sunset-based switching
-- **Night Light** — if you use GNOME on Wayland
+- **Gamma** — if you need a simple manual switcher with GUI and presets for X11, especially with several monitors
+- **Redshift/Gammastep** — if you need automatic time/sunset-based switching (Gammastep also works on wlroots compositors such as Sway and Hyprland)
+- **Night Light** — if you use GNOME (on Wayland or X11) and are fine with a single temperature slider
+
+### What the alternatives do better
+
+To keep this comparison honest:
+
+- **Smooth transitions** — Redshift and Gammastep fade the temperature over about an hour; Night Light transitions gradually on its schedule. Gamma applies changes instantly.
+- **Automation** — time-of-day and location-based switching are built into all three alternatives. Gamma is manual by design.
+- **Hooks** — Redshift and Gammastep run your own scripts on period changes (`~/.config/<tool>/hooks`), which allows custom notifications and integrations.
+- **No Python needed** — Redshift and Gammastep are compiled C programs shipped in distribution repositories; Night Light is part of GNOME.
+- **Wayland** — Night Light works on X11 and Wayland; Gammastep works on wlroots compositors.
+
+### Common limitation
+
+All four tools adjust the color through gamma ramps. Applications that change gamma ramps themselves — fullscreen games, some video players — can temporarily override the setting. This is documented in Redshift's FAQ and applies to Gamma as well.
 
 ## 🚀 Installation
 
